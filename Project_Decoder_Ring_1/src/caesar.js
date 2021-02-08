@@ -16,25 +16,50 @@ const caesarModule = (function () {
   // 97 -122 unicode letters lowercase
   function caesar(input, shift, encode = true) {
     // your solution code here
+    let result = "";
+    if (!encode) {
+      shift *= -1;
+    }
     if (shift === 0 || shift === Math.abs(shift) > 25) {
       return false;
     }
     input = input.toLowerCase();
+
     for (let i = 0; i < input.length; i++) {
       const originalChar = input.charCodeAt(i);
       if (originalChar < 123 && originalChar > 96) {
+        // check if newchar needs to be multuiplied by -1 with encode
+
+        let newChar = originalChar + shift;
         // check what orignalChar + shift is if higher than 123 or lower than 96 means wrap
-        // might use % to find remainder for wrapping
-        // that value will be newChar
-        // use newChar with
+        if (newChar < 97) {
+          newChar = 123 + (newChar - 97);
+        } else if (newChar > 122) {
+          newChar = (newChar % 122) + 96;
+        }
+        result += String.fromCharCode(newChar);
+      } else {
+        result += input[i];
       }
     }
+    return result;
+    // return new string
   }
 
   return {
     caesar,
   };
 })();
-caesarModule.caesar("test", 1);
+const testValue1 = caesarModule.caesar(
+  "a b c d e f g h i j k l m n o p q r s t u v w x y z",
+  2
+);
 
+const testValue2 = caesarModule.caesar(
+  "c d e f g h i j k l m n o p q r s t u v w x y z a b",
+  2,
+  false
+);
+console.log(testValue1);
+console.log(testValue2);
 module.exports = caesarModule.caesar;
