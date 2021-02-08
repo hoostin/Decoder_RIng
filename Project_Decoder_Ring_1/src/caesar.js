@@ -14,13 +14,13 @@ const caesarModule = (function () {
    * @param {boolean} encode encode or decode message true =encode false = decode
    */
   // 97 -122 unicode letters lowercase
-  function caesar(input, shift, encode = true) {
+  function caesar(input, shift = 0, encode = true) {
     // your solution code here
     let result = "";
     if (!encode) {
       shift *= -1;
     }
-    if (shift === 0 || shift === Math.abs(shift) > 25) {
+    if (shift === 0 || Math.abs(shift) > 25) {
       return false;
     }
     input = input.toLowerCase();
@@ -50,16 +50,18 @@ const caesarModule = (function () {
     caesar,
   };
 })();
-const testValue1 = caesarModule.caesar(
-  "a b c d e f g h i j k l m n o p q r s t u v w x y z",
-  2
-);
 
-const testValue2 = caesarModule.caesar(
-  "c d e f g h i j k l m n o p q r s t u v w x y z a b",
-  2,
-  false
-);
+/*
+ const testValue1 = caesarModule.caesar(
+        "a b c d e f g h i j k l m n o p q r s t u v w x y z",
+        2
+      );
+  const testValue2 = caesarModule.caesar(
+        "c d e f g h i j k l m n o p q r s t u v w x y z a b",
+        2,
+        false
+      );
 console.log(testValue1);
 console.log(testValue2);
+*/
 module.exports = caesarModule.caesar;
