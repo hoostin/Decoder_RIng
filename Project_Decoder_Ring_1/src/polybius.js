@@ -35,11 +35,15 @@ const polybiusModule = (function () {
    */
   function deCode(column, row) {
     if (column == 4 && row == 2) {
-      return "I/J";
+      return "i/j";
     }
-    let total = (row - 1) * 5 + column;
+    let total = (parseInt(row) - 1) * 5 + parseInt(column);
+    if (total > 10) {
+      total += 1;
+    }
     total += 96;
-    console.log(total);
+    //console.log(total);
+    // console.log(String.fromCharCode(total));
     return String.fromCharCode(total);
   }
   /**
@@ -49,18 +53,12 @@ const polybiusModule = (function () {
   function isLetter(str) {
     return str.length === 1 && str.match(/[a-z]/i);
   }
+  /**
+   * Function that translates a string with polybius grid
+   * @param {String} input string to decode or encode
+   * @param {boolean} encode to encode or decode true = encode false = decode
+   */
   function polybius(input, encode = true) {
-    // your solution code here
-
-    // make 2-d array for grid
-    // const pSquare = [
-    //   ["A", "B", "C", "D", "E"],
-    //   ["F", "G", "H", "I/J", "K"],
-    //   ["L", "M", "N", "O", "P"],
-    //   ["Q", "R", "S", "T", "U"],
-    //   ["V", "W", "X", "Y", "Z"],
-    // ];
-
     let result = "";
     // encode
     if (encode) {
@@ -74,16 +72,17 @@ const polybiusModule = (function () {
     }
     // decode
     else {
-      // if (input.length % 2 != 0) { need to exclude spaces
-      //   return false;
-      // }
+      const noSpaces = input.replace(" ", "");
+      if (noSpaces.length % 2 != 0) {
+        return false;
+      }
       for (let i = 0; i < input.length; i += 2) {
-        if (Number.isNaN(input[i]) || Number.isNaN(input[i + 1])) {
-          if (Number.isNaN(input[i]) && Number.isNaN(input[i + 1])) {
+        if (input[i] === " " || input[i + 1] === " ") {
+          if (input[i] === " " && input[i + 1] === " ") {
             result += input[i];
             result += input[i + 1];
           } else {
-            if (Number.isNaN(input[i])) {
+            if (input[i] === " ") {
               result += input[i];
               i -= 1;
             } else {
@@ -91,17 +90,11 @@ const polybiusModule = (function () {
             }
           }
         } else {
-          result += deCode(input[i] && input[i + 1]);
+          result += deCode(input[i], input[i + 1]);
         }
       }
     }
     return result;
-    // letter value out of 25(26) fix i/j
-
-    // use find to encode
-    // use string splitter thing or indexes to get both array numbers to decode
-    //
-    //return false;
   }
 
   return {
@@ -110,11 +103,4 @@ const polybiusModule = (function () {
     getCode,
   };
 })();
-polybiusModule.polybius("3251131343 2543241341", false);
-// const testString = "a b c d e f g h i j k l m n o p q r s t u v w x y z";
-// for (let c of testString) {
-//   if (polybiusModule.isLetter(c)) {
-//     console.log(polybiusModule.getCode(c));
-//   }
-// }
 module.exports = polybiusModule.polybius;
