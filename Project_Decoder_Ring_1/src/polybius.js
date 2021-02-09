@@ -90,7 +90,7 @@ const polybiusModule = (function () {
               result += input[i];
               i -= 1;
             } else {
-              //return false;
+              return false;
             }
           }
         } else {
