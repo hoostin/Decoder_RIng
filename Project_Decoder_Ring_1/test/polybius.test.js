@@ -24,7 +24,7 @@ describe("Polybius function: ", () => {
     expect(capital).to.eql(lowercase);
   });
   it("It maintains spaces in the message, before and after encoding or decoding.", () => {
-    const testString = "a message";
+    const testString = "a message word";
     let encode = polybius(testString);
     let decode = polybius(encode, false);
     expect(decode).to.eql(testString);

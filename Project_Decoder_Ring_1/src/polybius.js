@@ -72,7 +72,11 @@ const polybiusModule = (function () {
     }
     // decode
     else {
-      const noSpaces = input.replace(" ", "");
+      let noSpaces = input.replace(" ", "");
+      while (noSpaces.includes(" ")) {
+        noSpaces = noSpaces.replace(" ", "");
+      }
+
       if (noSpaces.length % 2 != 0) {
         return false;
       }
@@ -86,7 +90,7 @@ const polybiusModule = (function () {
               result += input[i];
               i -= 1;
             } else {
-              return false;
+              //return false;
             }
           }
         } else {
