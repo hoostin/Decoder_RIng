@@ -107,4 +107,5 @@ const polybiusModule = (function () {
     getCode,
   };
 })();
+
 module.exports = polybiusModule.polybius;
