@@ -20,6 +20,12 @@ describe("Substitution function: ", () => {
     const actual = substitution(message, alphabet);
     expect(actual).to.eql(result);
   });
+  it("It returns false if there are any duplicate characters in the given alphabet. ", () => {
+    const message = "excellent";
+    const alphabet = "xoyqmcgrukswaflnthdjpzibex";
+    const actual = substitution(message, alphabet);
+    expect(actual).to.eql(false);
+  });
   it("It maintains spaces in the message, before and after encoding or decoding. ", () => {
     const message = "you are an excellent spy";
     const alphabet = "xoyqmcgrukswaflnthdjpzibev";
